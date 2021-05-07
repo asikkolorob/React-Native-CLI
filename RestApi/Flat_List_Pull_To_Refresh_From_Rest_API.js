@@ -7,22 +7,13 @@ export class App extends Component {
     super();
     this.state={
       DATA:[],
-      loading:true
+      loading:true,
+      refreshLoading:false
     }
   }
 
   componentDidMount=()=>{
-    let url = 'http://www.apishooter.com/getArticleList';
-    let config = {method:'GET'};
-    fetch(url,config)
-      .then((result)=>result.json())
-      .then((response)=>{
-        this.setState({DATA:response,loading:false})
-      })
-      .catch((error)=>{
-        Alert.alert('please chek your internet connection')
-        this.setState({DATA:response,loading:false})
-      })
+    this.onApiCall();
   }
 
   ChildView=({img,title,short_des})=>{
@@ -34,7 +25,26 @@ export class App extends Component {
       </View>
     )
   }
-  
+
+  pullRefresh=()=>{
+    this.onApiCall();
+  }
+
+  onApiCall=()=>{
+    this.setState({refreshLoading:true})
+    let url = 'http://www.apishooter.com/getArticleList';
+    let config = {method:'GET'};
+    fetch(url,config)
+      .then((result)=>result.json())
+      .then((response)=>{
+        this.setState({DATA:response,loading:false,refreshLoading:false})
+      })
+      .catch((error)=>{
+        Alert.alert('please chek your internet connection')
+        this.setState({loading:false,refreshLoading:false})
+      })
+  }
+
   render() {
 
     if(this.state.loading==true){
@@ -48,6 +58,8 @@ export class App extends Component {
       return (
         <View>
           <FlatList
+            onRefresh={()=>this.pullRefresh}
+            refreshing={this.state.refreshLoading}
             data={this.state.DATA}
             keyExtractor={item => item.id.toString()}
             renderItem={({item})=><this.ChildView title={item.title} img={item.img} short_des={item.short_des} 
