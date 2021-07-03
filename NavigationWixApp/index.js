@@ -56,15 +56,15 @@ const mainRoot = {
                 component: {
                   name: 'HomePage',
                   options:{
-                    topBar:{title:{text:'Home Page'},subtitle:{text:'Practice Purpose App'}},
+                    topBar:{title:{text:'Home Page'},subtitle:{text:'Practice Purpose Simple News App'}},
                     bottomTab: {
                       icon: require('./src/images/home.png'),
                       text:'Home',
                       textColor:'#000',
-                      selectedTextColor:'#000',
-                      selectedIconColor: '#F85C70',
-                      selectedBackgroundColor:'#F85C70',
-                      activeBackgroundColor: '#F85C70',
+                      selectedTextColor:'#D35400',
+                      selectedIconColor: '#D35400',
+                      selectedBackgroundColor:'#D35400',
+                      activeBackgroundColor: '#D35400',
                     }
                   },
                 }
@@ -84,9 +84,9 @@ const mainRoot = {
                       icon: require('./src/images/information.png'),
                       text:'About',
                       textColor:'#000',
-                      selectedTextColor:'#000',
-                      // selectedIconColor: '#F85C70',
-                      selectedBackgroundColor:'red'
+                      selectedTextColor:'#D35400',
+                      selectedIconColor: '#D35400',
+                      selectedBackgroundColor:'#D35400'
                     }
                   }
                 }
@@ -106,9 +106,9 @@ const mainRoot = {
                       icon: require('./src/images/contact.png'),
                       text:'Contact',
                       textColor:'#000',
-                      selectedTextColor:'#000',
-                      selectedIconColor: '#F85C70',
-                      backgroundColor:'#F85C70'
+                      selectedTextColor:'#D35400',
+                      selectedIconColor: '#D35400',
+                      backgroundColor:'#D35400'
                     }
                   }
                 }
@@ -120,7 +120,7 @@ const mainRoot = {
     },
 };
 
-let isLoggedin = false;
+let isLoggedin = true;
 
 Navigation.events().registerAppLaunchedListener( async () => {
   Navigation.setRoot( { root: ( isLoggedin ) ? mainRoot : loginRoot } );
