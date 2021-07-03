@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer ,DarkTheme, DefaultTheme} from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import {ActivityIndicator,View} from 'react-native';
@@ -25,11 +25,29 @@ function App() {
   // const [isLoading, setIsLoading] = React.useState(true);
   // const [userToken, setUserToken] = React.useState(null); 
 
+  const [isDarkTheme,setIsDarkTheme] = React.useState(false);
+
   const initialLoginState = {
     isLoading: true,
     userName: null,
     userToken: null,
   };
+
+  const customDefaultTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+    }
+  }
+
+  const customDarkTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+    }
+  }
+
+  const theme = isDarkTheme ? customDarkTheme : customDefaultTheme;
 
   const loginReducer = (prevState, action) => {
     switch( action.type ) {
@@ -96,6 +114,9 @@ function App() {
       // setUserToken('fgkj');
       // setIsLoading(false);
     },
+    toggletheme: () =>{
+      setIsDarkTheme (isDarkTheme => !isDarkTheme)
+    }
   }), []);
 
   useEffect(() => {
@@ -122,7 +143,7 @@ function App() {
   }
   return (
     <AuthContext.Provider value={authContext}>
-      <NavigationContainer>
+      <NavigationContainer theme={theme}>
         {loginState.userToken !== null ? (
           <Drawer.Navigator
             drawerContent={props => <DrawerContent {...props} />}>

@@ -7,19 +7,17 @@ import {View,StyleSheet,Button,
     TouchableHighlight,
     SafeAreaView} from 'react-native';
 
+
+import { useTheme } from '@react-navigation/native';    
 import SimpleLineIcons from 'react-native-vector-icons/Ionicons';
 
 import { AuthContext } from './components/context'
 
 export function DrawerContent (props) {
 
-    const [isDarkTheme,setIsDarkTheme] = React.useState(false);
+    const navigationDarkTheme = useTheme();
 
-    const toggleTheme = () => {
-        setIsDarkTheme(!isDarkTheme);
-    }
-
-    const {signOut} = React.useContext(AuthContext);
+    const {signOut,toggleTheme} = React.useContext(AuthContext);
 
     return(
         <SafeAreaView style={styles.container}>
@@ -80,7 +78,7 @@ export function DrawerContent (props) {
                                 <Switch style={{marginLeft:40}}
                                     trackColor={{ false: "#767577", true: "#81b0ff" }}
                                     ios_backgroundColor="#3e3e3e"
-                                    value={isDarkTheme}
+                                    value={navigationDarkTheme}
                                 />
                             </View>
                             
